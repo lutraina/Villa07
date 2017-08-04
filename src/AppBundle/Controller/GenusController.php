@@ -10,7 +10,7 @@ namespace AppBundle\Controller;
 
 
 
-
+use AppBundle\Entity\Genus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,14 +22,40 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class GenusController extends Controller
 {
     /**
+     * @Route("/genus/new")
+     */
+    public function newAction()
+    {
+        $genus = new Genus();
+        $genus->setName('Octopus'.rand(1, 100));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($genus);
+        $em->flush();
+
+        return new Response('<html><body>Genus created!</body></html>');
+    }
+
+
+    /**
      * @Route("/genus/{genusName}")
      */
     public function _showAction($genusName){
 
 
-        $funFact = 'Octopuses can change the color of their body in just *three-tenths* of a second!';
-        $funFact = $this->get('markdown.parser')
-            ->transform($funFact);
+        $funFact = 'testando *three-tenths* of a second : Markdown!';
+
+
+        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
+        $key = md5($funFact);
+        if ($cache->contains($key)) {
+            $funFact = $cache->fetch($key);
+        } else {
+            sleep(1); // fake how slow this could be
+            $funFact = $this->get('markdown.parser')
+                ->transform($funFact);
+            $cache->save($key, $funFact);
+        }
 
 
             return $this->render('genus/show.html.twig', array(
