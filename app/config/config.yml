@@ -79,8 +79,8 @@ doctrine_cache:
                 directory: %kernel.cache_dir%/markdown_cache
 
 # app/config/config.yml
-#doctrine_migrations:
- #   dir_name: "%kernel.root_dir%/DoctrineMigrations"
- #   namespace: Application\Migrations
- #   table_name: migration_versions
- #   name: Application Migrations
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations
