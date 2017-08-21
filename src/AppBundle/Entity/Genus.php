@@ -33,7 +33,7 @@ class Genus
     private $speciesCount;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $funFact;
 
@@ -75,6 +75,11 @@ class Genus
     public function setFunFact($funFact)
     {
         $this->funFact = $funFact;
+    }
+    
+    public function getUpdatedAt()
+    {
+        return new \DateTime('-'.rand(0, 100).' days');
     }
 
 }
