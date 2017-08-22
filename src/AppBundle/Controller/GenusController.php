@@ -28,6 +28,8 @@ class GenusController extends Controller
     {
         $genus = new Genus();
         $genus->setName('Octopus'.rand(1, 100));
+        $genus->setSubFamily('Octopodinae');
+        $genus->setSpeciesCount(rand(100, 99999));
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($genus);
@@ -37,16 +39,37 @@ class GenusController extends Controller
     }
 
 
+	/**
+     * @Route("/genus")
+     */
+    public function listAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $genuses = $em->getRepository('AppBundle:Genus')
+            ->findAll();
+        return $this->render('genus/list.html.twig', [
+            'genuses' => $genuses
+        ]);
+    }
+    
     /**
-     * @Route("/genus/{genusName}")
+     * @Route("/genus/{genusName}", name="genus_show")
      */
     public function _showAction($genusName){
 
 
-        $funFact = 'testando *three-tenths* of a second : Markdown!';
+        //$funFact = 'testando *three-tenths* of a second : Markdown!';
 
+		$em = $this->getDoctrine()->getManager();
+        $genus = $em->getRepository('AppBundle:Genus')
+            ->findOneBy(['name' => $genusName]);
+            
+        if (!$genus) {
+            throw $this->createNotFoundException('genus not found');
+        }
+        
 
-        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
+        /*$cache = $this->get('doctrine_cache.providers.my_markdown_cache');
         $key = md5($funFact);
         if ($cache->contains($key)) {
             $funFact = $cache->fetch($key);
@@ -55,13 +78,26 @@ class GenusController extends Controller
             $funFact = $this->get('markdown.parser')
                 ->transform($funFact);
             $cache->save($key, $funFact);
-        }
+        }*/
 
 
-            return $this->render('genus/show.html.twig', array(
+            /*return $this->render('genus/show.html.twig', array(
                 'name' => $genusName,
                 'funFact' => $funFact
+            ));*/
+            
+            
+            //TODO LIST : 
+            /*$funFact = $this->get('markdown.parser')
+                ->transform($funFact);
+                */
+                
+                
+            return $this->render('genus/show.html.twig', array(
+                'genus' => $genus
             ));
+            
+
 
     }
 
