@@ -69,7 +69,7 @@ class GenusController extends Controller
             ->findOneBy(['name' => $genusName]);
             
         if (!$genus) {
-            throw $this->createNotFoundException('genus not found');
+            throw $this->createNotFoundException('mssg d\'erreur : genus doesn\t exist !');
         }
 
         $transformer = new MarkdownTransformer(

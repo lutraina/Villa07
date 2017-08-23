@@ -10,18 +10,20 @@ namespace AppBundle\Service;
 
 //the parser markdown will parse markdown and eventually catch it
 
+use Knp\Bundle\MarkdownBundle\MarkdownParserInterface;
+
 class MarkdownTransformer
 {
     private $markdownParser;
-    
-    public function __construct($markdownParser)
+
+    public function __construct(MarkdownParserInterface $markdownParser)
     {
         $this->markdownParser = $markdownParser;
     }
 
     public function parse($str){
 
-        return $this->markdownParser->transform($str);
+        return $this->markdownParser->transformMarkdown($str);
 
         //return strtoupper($str);
 
