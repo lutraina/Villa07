@@ -72,10 +72,7 @@ class GenusController extends Controller
             throw $this->createNotFoundException('mssg d\'erreur : genus doesn\t exist !');
         }
 
-        $transformer = new MarkdownTransformer(
-            $this->get('markdown.parser')
-        );
-
+        $transformer = $this->get('app.markdown_transformer');
 
         $funFact = $transformer->parse($genus->getFunFact());
 
