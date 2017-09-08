@@ -4,9 +4,16 @@ parameters:
     #parameter_name: value
 
 services:
+<<<<<<< HEAD
     user_agent_subscriber:
         class: AppBundle\EventListener\UserAgentSubscriber
         arguments: ["@logger"]
         tags:
             - { name: kernel.event_subscriber }
             #~	
+=======
+    app.markdown_transformer:
+        class: AppBundle\Service\MarkdownTransformer
+        arguments: ['@markdown.parser']
+
+>>>>>>> 132f6ced91f135ccf33edba0670f782615ed8696
