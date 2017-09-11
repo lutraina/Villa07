@@ -27,6 +27,8 @@
             </div>
         </nav>
 
+		
+
         {% block body %}{% endblock %}
 
         <div class="navbar-inverse navbar-static-bottom" role="navigation">
@@ -34,6 +36,9 @@
                 <div class="navbar-text">
                     <p>Journey to the Center of Symfony with your guide KnpUniversity</p>
                 </div>
+                {{ render_esi(controller('AppBundle:Dinosaur:_latestTweets', {
+				    'userOnMac': app.request.attributes.get('isMac')
+				})) }}
                 <div class="navbar-text navbar-right">
                     <p>Dino image credit to <a href="http://dinosaurs.about.com/od/typesofdinosaurs/tp/dinosaurgroups.htm" class="navbar-link">about.com</a></p>
                 </div>

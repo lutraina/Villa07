@@ -5,21 +5,40 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Dinosaur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class DinosaurController extends Controller
 {
     /**
-     * @Route("/dino", name="dinosaur_list")
+     * @Route("/", name="dinosaur_list")
      */
-    public function indexAction()
+    public function indexAction($isMac)
     {
         $dinos = $this->getDoctrine()
             ->getRepository('AppBundle:Dinosaur')
             ->findAll();
 
-        return $this->render('dinosaurs/index.html.twig', [
+	/*$request = new Request();
+	    $request->attributes->set(
+	        '_controller',
+	        'AppBundle:Dinosaur:_latestTweets'
+	    );
+	    $httpKernel = $this->container->get('http_kernel');
+	    $response = $httpKernel->handle(
+	        $request,
+	        HttpKernelInterface::SUB_REQUEST
+	    );*/
+    
+        $response = $this->render('dinosaurs/index.html.twig', [
             'dinos' => $dinos,
+            'isMac' => $isMac
         ]);
+        
+        $response->setSharedMaxAge(600);
+        
+        return $response;
+        
     }
 
     /**
@@ -39,4 +58,23 @@ class DinosaurController extends Controller
             'dino' => $dino,
         ]);
     }
+    
+    /**
+     * @Route("/tweets", name="latest_news")
+     */
+    public function _latestTweetsAction($userOnMac)
+	{
+	    $tweets = [
+	        'Dinosaurs can have existential crises too you know.',
+	        'Eating lollipops... ',
+	        'Rock climbing... '
+	    ];
+	
+	
+	    return $this->render('dinosaurs/_latestTweets.html.twig', [
+	        'tweets' => $tweets,
+	        'isMac' => $userOnMac
+	    ]);
+	}
+
 } 

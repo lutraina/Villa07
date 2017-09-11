@@ -1,10 +1,14 @@
 {% extends 'base2.html.twig' %}
 
 {% block body %}
+ 
     <div class="container">
         <div class="dino-header text-center">
             <h1>Journey to the Center of the Earth</h1>
             <h2 class="journey-font">DINOSAURS!</h2>
+            {% if isMac %}
+    <h3>We love eating Mac's...RAWR!</h3>
+{% endif %}
         </div>
         <div class="row">
             {% for dino in dinos %}

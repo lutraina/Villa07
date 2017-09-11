@@ -109,7 +109,7 @@ class GenusController extends Controller
             /*$funFact = $this->get('markdown.parser')
                 ->transform($funFact);
                 */
-<<<<<<< HEAD
+
 
 
         $this->get('logger')
@@ -128,14 +128,14 @@ class GenusController extends Controller
             'genus' => $genus,
             'recentNoteCount' => count($recentNotes)
         ));
-=======
+ 
                 
                 
             return $this->render('genus/show.html.twig', array(
                 'genus' => $genus,
                 'funFact' => $funFact
             ));
->>>>>>> 132f6ced91f135ccf33edba0670f782615ed8696
+ 
             
 
 

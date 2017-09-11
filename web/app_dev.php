@@ -23,9 +23,17 @@ Debug::enable();
 
 $kernel = new AppKernel('dev', true);
 if (PHP_VERSION_ID < 70000) {
-    $kernel->loadClassCache();
+    //$kernel->loadClassCache();
 }
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
+
+
+/*$request2 = Request::create('/dinosaurs/2');
+$response2 = $kernel->handle($request2);
+
+echo $response;
+echo $response2;*/
+
 $response->send();
 $kernel->terminate($request, $response);

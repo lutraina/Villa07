@@ -10,7 +10,7 @@ parameters:
     cache_type: file_system
 
 framework:
-    #esi: ~
+    esi: { enabled: true }
     #translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
     router:
@@ -38,6 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        twitter_username: weaverryan
     number_format:
         thousands_separator: '.'
 
