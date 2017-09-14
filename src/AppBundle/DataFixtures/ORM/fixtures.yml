@@ -67,3 +67,7 @@ AppBundle\Entity\Dinosaur:
             - <firstName()>
             - Stygimoloch
             - http://0.tqn.com/y/dinosaurs/1/L/6/3/-/-/stygiluisrey.jpg
+
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: weaverryan+<current()>@gmail.com
